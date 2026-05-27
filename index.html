@@ -2,9 +2,832 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>DORUDO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>日本シャー芯協会</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Yu Gothic","Meiryo",sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+    linear-gradient(to bottom right,#f7f7f7,#ececec);
+    color:#111;
+    overflow-x:hidden;
+}
+
+/* 背景 */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-3;
+}
+
+/* HEADER */
+
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:24px 9%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(10px);
+    background:rgba(255,255,255,0.75);
+    border-bottom:1px solid rgba(0,0,0,0.08);
+    z-index:999;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:5px;
+    color:#111;
+}
+
+.logo span{
+    color:#a30000;
+}
+
+nav{
+    display:flex;
+    gap:30px;
+}
+
+nav a{
+    color:#333;
+    text-decoration:none;
+    position:relative;
+    transition:.3s;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:1px;
+    background:#111;
+    transition:.3s;
+}
+
+nav a:hover::after{
+    width:100%;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:140px 20px 60px;
+}
+
+.hero-inner{
+    max-width:1100px;
+    animation:fadeHero 1.4s ease;
+}
+
+@keyframes fadeHero{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.sub{
+    color:#666;
+    letter-spacing:10px;
+    margin-bottom:25px;
+    font-size:13px;
+}
+
+.main-logo{
+    width:min(1000px,95%);
+    margin-bottom:50px;
+    filter:drop-shadow(0 0 12px rgba(0,0,0,0.15));
+}
+
+.hero-text{
+    color:#333;
+    line-height:2.3;
+    font-size:18px;
+    margin-bottom:45px;
+}
+
+.oracle{
+    margin-top:35px;
+    color:#444;
+    letter-spacing:4px;
+    font-size:15px;
+    min-height:30px;
+}
+
+.believers{
+    margin-top:25px;
+    color:#666;
+    letter-spacing:3px;
+    font-size:14px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.btn{
+    padding:16px 40px;
+    border:1px solid rgba(0,0,0,0.12);
+    text-decoration:none;
+    color:#111;
+    transition:.35s;
+    background:white;
+    cursor:pointer;
+    letter-spacing:2px;
+    font-weight:bold;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:rgba(163,0,0,0.08);
+    transition:.4s;
+}
+
+.btn:hover::before{
+    left:100%;
+}
+
+.btn:hover{
+    background:#111;
+    color:white;
+    transform:translateY(-5px);
+}
+
+.gacha-btn{
+    background:#111;
+    color:white;
+    border:none;
+}
+
+.gacha-btn:hover{
+    background:#a30000;
+    transform:translateY(-5px) scale(1.03);
+}
+
+/* SECTION */
+
+.section{
+    padding:130px 10%;
+}
+
+.section-title{
+    font-size:46px;
+    margin-bottom:18px;
+    letter-spacing:4px;
+}
+
+.section-sub{
+    color:#666;
+    line-height:2;
+    margin-bottom:55px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:28px;
+}
+
+.card{
+    background:white;
+    border:1px solid rgba(0,0,0,0.08);
+    padding:38px;
+    transition:.7s;
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(40px);
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:1px;
+    background:#111;
+    transition:.5s;
+}
+
+.card:hover::before{
+    left:100%;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(0,0,0,0.2);
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    margin-bottom:18px;
+    font-size:24px;
+}
+
+.card p{
+    color:#444;
+    line-height:2;
+}
+
+/* 教義 */
+
+.doctrine{
+    padding:140px 10%;
+    text-align:center;
+}
+
+.doctrine-box{
+    max-width:950px;
+    margin:auto;
+    padding:70px;
+    border:1px solid rgba(0,0,0,0.08);
+    background:white;
+    transition:.7s;
+    opacity:0;
+    transform:translateY(40px);
+}
+
+.doctrine-box:hover{
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.doctrine-box h2{
+    font-size:50px;
+    margin-bottom:35px;
+}
+
+.doctrine-box p{
+    line-height:2.5;
+    color:#333;
+    font-size:18px;
+}
+
+/* 幹部 */
+
+.members{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
+
+.member{
+    background:white;
+    border:1px solid rgba(0,0,0,0.08);
+    padding:35px;
+    text-align:center;
+    transition:.7s;
+    opacity:0;
+    transform:translateY(40px);
+}
+
+.member:hover{
+    transform:translateY(-7px);
+    border-color:rgba(0,0,0,0.2);
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.role{
+    color:#666;
+    margin-bottom:10px;
+    letter-spacing:3px;
+}
+
+.name{
+    font-size:30px;
+    margin-bottom:18px;
+}
+
+.desc{
+    color:#444;
+    line-height:2;
+}
+
+/* 芯価格 */
+
+.market{
+    max-width:850px;
+    margin:auto;
+    background:white;
+    border:1px solid rgba(0,0,0,0.08);
+}
+
+.price-box{
+    display:flex;
+    justify-content:space-between;
+    padding:22px 28px;
+    border-bottom:1px solid rgba(0,0,0,0.08);
+    color:#111;
+    font-size:18px;
+}
+
+.price-box span{
+    color:#666;
+}
+
+/* 試験 */
+
+.test-box{
+    max-width:900px;
+    margin:auto;
+    padding:50px;
+    background:white;
+    border:1px solid rgba(0,0,0,0.08);
+}
+
+.test-box p{
+    color:#333;
+    line-height:2.4;
+    margin-bottom:20px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:70px 20px;
+    border-top:1px solid rgba(0,0,0,0.08);
+    color:#555;
+    margin-top:100px;
+    background:white;
+}
+
+.warning{
+    margin-top:12px;
+    font-size:12px;
+    color:#777;
+}
+
+/* スマホ */
+
+@media(max-width:700px){
+
+    header{
+        flex-direction:column;
+        gap:18px;
+    }
+
+    nav{
+        gap:18px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero-text{
+        font-size:16px;
+    }
+
+    .doctrine-box{
+        padding:40px 25px;
+    }
+
+    .doctrine-box h2{
+        font-size:35px;
+    }
+
+    .price-box{
+        font-size:15px;
+    }
+
+}
+
+</style>
+
 </head>
-<body style="background:black;color:white;font-size:50px;text-align:center;padding-top:20%;">
-DORUDO SERVER
+
+<body>
+
+<header>
+
+    <div class="logo">
+        日本<span>シャー芯</span>協会
+    </div>
+
+    <nav>
+        <a href="#about">理念</a>
+        <a href="#system">制度</a>
+        <a href="#leaders">幹部</a>
+        <a href="#market">芯価格</a>
+    </nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-inner">
+
+        <div class="sub">
+            JAPAN MECHANICAL PENCIL LEAD ASSOCIATION
+        </div>
+
+        <img src="logo.png" class="main-logo" alt="日本シャー芯協会ロゴ">
+
+        <p class="hero-text">
+            シャー芯とは、ただの筆記具ではない。<br>
+            それは覚悟であり、文化であり、意思である。<br><br>
+
+            人はなぜ芯を折るのか。<br>
+            人はなぜ芯を求めるのか。<br>
+            そして人はなぜ、芯に魅了されるのか。
+        </p>
+
+        <div class="buttons">
+            <a href="#about" class="btn">協会理念</a>
+            <a onclick="join()" class="btn">加入申請</a>
+            <a href="gacha.html" class="btn gacha-btn">シャー芯ガチャ</a>
+        </div>
+
+        <div id="oracleText" class="oracle"></div>
+
+        <div class="believers">
+            我々は、芯の可能性を追求する。
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 理念 -->
+
+<section class="doctrine" id="about">
+
+    <div class="doctrine-box">
+
+        <h2>芯とは何か</h2>
+
+        <p>
+            芯は折れる。<br>
+            だが、人もまた折れる。<br><br>
+
+            テスト中、突然折れる芯。<br>
+            ケースの底で砕け散る黒鉛。<br>
+            友から一本分けてもらった時の救済。<br><br>
+
+            我々は知っている。<br>
+            シャー芯とは、単なる消耗品ではない。<br><br>
+
+            芯とは、“意思”である。<br>
+            また、あなたが加入するのかも自由である。<br>
+
+            さて、あなたは芯に何を求める？
+        </p>
+
+    </div>
+
+</section>
+
+<!-- お告げ -->
+
+<section class="doctrine">
+
+    <div class="doctrine-box">
+
+        <h2>教祖様のお告げ</h2>
+
+        <p>
+            「芯を恐れるな。」<br><br>
+
+            「折れた芯にも意味はある。」<br><br>
+
+            「芯を敬え。そこに道はある。」<br><br>
+
+            「HBも2Bも、すべて平等である。」<br><br>
+
+            教祖 ルンべ
+        </p>
+
+    </div>
+
+</section>
+
+<!-- 制度 -->
+
+<section class="section" id="system">
+
+    <div class="section-title">
+        階級制度
+    </div>
+
+    <div class="section-sub">
+        日本シャー芯協会では、独自の階級制度と儀式を採用しています。
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>芯儀式</h3>
+
+            <p>
+                当協会では、
+                芯への敬意を示す文化を
+                「芯儀式」と呼ぶ。<br><br>
+
+                芯との一体化、
+                及び忠誠を示す重要な文化である。
+            </p>
+        </div>
+
+        <div class="card">
+
+            <h3>時報の儀式</h3>
+
+            <p>
+                午前11時11分・午後1時11分。<br>
+                この時にヨコナガ様の席に向かい、
+                祈りを捧げる。<br><br>
+
+                静寂の中、
+                “芯の導き”を得る。
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>階級制度</h3>
+
+            <p>
+                最初は皆一般階級から始まる。<br>
+                階級は本人の態度、忠誠度、
+                能力によって左右される。<br><br>
+
+                ・一般会員<br>
+                ・シルバー会員<br>
+                ・ゴールド会員<br>
+                ・プラチナ会員<br>
+                ・ダイヤ会員<br><br>
+
+                ～ 上級会員 ～<br>
+                ・役員<br>
+                ・要員（運営）<br><br>
+
+                ～ 幹部 ～<br>
+                ・主<br>
+                ・教祖
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 幹部 -->
+
+<section class="section" id="leaders">
+
+    <div class="section-title">
+        上級・幹部メンバー
+    </div>
+
+    <div class="section-sub">
+        当協会の維持と発展に感謝する。
+    </div>
+
+    <div class="members">
+
+        <div class="member">
+
+            <div class="role">教祖</div>
+
+            <div class="name">ルンべ</div>
+
+            <div class="desc">
+                初代芯覚醒者。<br>
+                「芯は人生である」と
+                最初に語った人物。<br><br>
+
+                芯界の伝説。
+            </div>
+
+        </div>
+
+        <div class="member">
+
+            <div class="role">主</div>
+
+            <div class="name">サイトウ</div>
+
+            <div class="desc">
+                協会創設者。<br>
+                このWEBも管理している。<br><br>
+
+                数学44点。
+            </div>
+
+        </div>
+
+        <div class="member">
+
+            <div class="role">運営</div>
+
+            <div class="name">ワタナベ</div>
+
+            <div class="desc">
+                加入審査担当。<br>
+                なぜか権限が強い。<br><br>
+
+                非常に頭が冴える。
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 加入 -->
+
+<section class="section">
+
+    <div class="section-title">
+        加入方法
+    </div>
+
+    <div class="section-sub">
+        当協会への加入には簡易試験があります。
+    </div>
+
+    <div class="test-box">
+
+        <p>
+            試験内容は、
+            “芯への理解と覚悟を示すこと”
+            です。
+        </p>
+
+        <p>
+            - 加入するかはあなたの自由である -
+        </p>
+
+        <p>
+            無理のない範囲で、
+            芯と向き合ってください。
+        </p>
+
+    </div>
+
+</section>
+
+<!-- 市場 -->
+
+<section class="section" id="market">
+
+    <div class="section-title">
+        本日の芯価格
+    </div>
+
+    <div class="section-sub">
+        日本シャー芯協会 黒鉛市場
+    </div>
+
+    <div class="market">
+
+        <div class="price-box">
+            <div>HB 0.5mm</div>
+            <span>β版準備中</span>
+        </div>
+
+        <div class="price-box">
+            <div>2B 0.3mm</div>
+            <span>β版準備中</span>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    © 2026 日本シャー芯協会<br>
+  Create by Saito and license by Saito
+
+    <div class="warning">
+        - あなたは芯を信じるか？ -
+    </div>
+
+    <div class="warning">
+        「芯は、あなたを見ている。」
+    </div>
+
+</footer>
+
+<script>
+
+const messages = [
+
+    "「芯を知る者、芯に導かれる。」",
+    "「HBも2Bも平等である。」",
+    "「折れた芯にも意味はある。」",
+    "「黒鉛は静かに世界を支える。」",
+    "「芯不足を恐れるな。」",
+    "「教祖様は見ている。」",
+    "「あなたは芯を信じるか？」"
+
+];
+
+const randomMessage =
+messages[Math.floor(Math.random() * messages.length)];
+
+document.getElementById("oracleText").innerText =
+randomMessage;
+
+function join(){
+
+    const result = confirm(
+        "あなたは本当に芯を信じますか？"
+    );
+
+    if(result){
+
+        alert(
+            "加入申請を受理しました。\n教祖の導きを待ちなさい。"
+        );
+
+    }else{
+
+        alert(
+            "芯はいつでもあなたを待っています。"
+        );
+
+    }
+
+}
+
+/* スクロール演出 */
+
+const cards = document.querySelectorAll(
+".card,.member,.doctrine-box"
+);
+
+window.addEventListener("scroll",()=>{
+
+    cards.forEach(card=>{
+
+        const top = card.getBoundingClientRect().top;
+
+        if(top < window.innerHeight - 100){
+
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+        }
+
+    });
+
+});
+
+/* 初回表示 */
+
+window.dispatchEvent(new Event("scroll"));
+
+</script>
+
 </body>
 </html>
