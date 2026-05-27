@@ -489,7 +489,7 @@ footer{
         <div style="margin-top:40px; text-align:center;">
             <input id="codeInput" type="text" placeholder="コードを入力してください" style="padding:14px 20px; width:min(400px,90%); border:1px solid rgba(0,0,0,0.15); border-radius: 6px; font-size:16px; outline:none; text-align:center;">
             <div style="margin-top:25px;">
-                <button class="btn gacha-btn-main" onclick="redeemCode()">コードを認証する</button>
+                <button class="btn gacha-btn-main" onclick="redeemCode()">コードを使用する</button>
             </div>
         </div>
     </div>
@@ -552,9 +552,9 @@ function runLoadingOverlay(callback) {
     const txt = document.getElementById("loadingText");
     overlay.style.display = "flex";
     overlay.style.opacity = "1";
-    txt.innerText = "データを照合中...";
+    txt.innerText = ロード...";
     
-    setTimeout(() => { txt.innerText = "ガチャを生成しています..."; }, 600);
+    setTimeout(() => { txt.innerText = "ガチャる！"; }, 600);
     
     setTimeout(() => {
         overlay.style.transition = "opacity 0.3s ease";
@@ -766,11 +766,11 @@ function stopMiniGame(){
 let reactionStart = 0; let reactionReady = false;
 function startReactionGame(){
     const box = document.getElementById("reactionBox");
-    reactionReady = false; box.style.background = "#fafafa"; box.style.color = "#111"; box.innerHTML = "画面が赤くなるまで待機...";
+    reactionReady = false; box.style.background = "#fafafa"; box.style.color = "#111"; box.innerHTML = "待機...";
     const delay = Math.random() * 3000 + 2000;
     setTimeout(()=>{
         reactionReady = true; reactionStart = Date.now();
-        box.style.background = "#a30000"; box.style.color = "white"; box.innerHTML = "今クリック！！！";
+        box.style.background = "#a30000"; box.style.color = "white"; box.innerHTML = "クリック！！！";
     }, delay);
 }
 
