@@ -127,7 +127,7 @@ nav a:hover::after, .nav-btn:hover::after{
     width:min(1000px,100%);
     background:white;
     border:1px solid rgba(0,0,0,0.08);
-    border-radius: 12px; /* 少し角を丸めてモダンに */
+    border-radius: 12px;
     padding:60px 50px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.02);
     transition:.35s;
@@ -552,7 +552,7 @@ function runLoadingOverlay(callback) {
     const txt = document.getElementById("loadingText");
     overlay.style.display = "flex";
     overlay.style.opacity = "1";
-    txt.innerText = ロード...";
+    txt.innerText = "ロード...";
     
     setTimeout(() => { txt.innerText = "ガチャる！"; }, 600);
     
