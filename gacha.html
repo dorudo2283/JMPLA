@@ -535,16 +535,42 @@ function switchTab(tabName) {
     document.body.style.animation = "";
 }
 
-// =========================
-// ガチャデータ（マイルド化）
-// =========================
+// ==========================================
+// ガチャデータ（カオスリニューアル版）
+// ※実数ベースで確率の比率を維持したまま合計100%に調整
+// ==========================================
 const items = [
-    { name:"HB 0.5mm", rarity:"Common", chance:50, color:"#555", desc:"定番中の定番。どんなシーンでも使いやすい標準的な芯です。", type:"スタンダード芯" },
-    { name:"2B 0.3mm", rarity:"Rare", chance:28, color:"#0066cc", desc:"なめらかな書き味と、手帳にも最適な細さを両立した人気の芯。", type:"ファイン＆プレシジョン芯" },
-    { name:"0.5mm カラー赤芯", rarity:"Super Rare", chance:14, color:"#a30000", desc:"丸付けやノートの強調に最適。綺麗に消しゴムで消せる優れもの。", type:"スペシャルカラー芯" },
-    { name:"0.2mm 超極細芯", rarity:"Ultra Rare", chance:6, color:"#6f42c1", desc:"技術の結晶。驚くほどの細さで、緻密な文字やイラストに対応します。", type:"ハイテク極細芯" },
-    { name:"特製ゴールドケース芯", rarity:"Legend", chance:2, color:"#e6a100", desc:"協会特製のゴールドケースに入った非売品。持っているだけで幸運が訪れるかも？", type:"リミテッドコレクティブル" }
+    { name:"巨匠の遺産 0.05mm", rarity:"BOSS", chance:0.03, color:"#000000", desc:"書いた瞬間に紙の分子レベルで吸着し、肉眼では捉えきれない極細の線を描く伝説の消失芯。もはや存在しているかどうかも怪しい。", type:"ロスト・テクノロジー" },
+    { name:"特殊合金芯 1.0mm [硬度H]", rarity:"PRE", chance:0.06, color:"#4a5568", desc:"極太の剛線とガチガチの硬度を両立した最高峰の芯。鉄板に書いても絶対に折れないと言われる最強の金属ハイブリッド構造。", type:"インダストリアル・マスターピース" },
+    { name:"超硬質ニードル 9.0mm [硬度H]", rarity:"UUR", chance:0.13, color:"#2d3748", desc:"もしかしてデッサン用の炭か何かですか？玄人を超えた変態的な太さとガリガリした硬質な書き味が、一部のマニアを狂わせる。", type:"プロフェッショナル・アーティザン" },
+    { name:"形状記憶グラファイト芯", rarity:"UR", chance:0.44, color:"#718096", desc:"どれだけ激しくノックしても、常に最適な長さと鋭さを自己維持するナノテク芯。筆圧の強いあなたのための救世主。", type:"次世代ハイテクマテリアル" },
+    { name:"純金箔コーティング芯", rarity:"LEG", chance:0.57, color:"#d4af37", desc:"芯の表面に24金箔を贅沢にあしらった美術品。ノートに書くと文字が物理的にキラキラ輝く、富と権力の象徴。", type:"ラグジュアリー・コレクティブル" },
+    { name:"ハイパーカーボン・プレシジョン", rarity:"SSR", chance:0.63, color:"#1a202c", desc:"高純度グラファイトを極限まで圧縮。摩擦係数がほぼゼロに近く、氷の上を滑るような超絶滑らかな書き味を実現。", type:"ハイエンド・スタンダード" },
+    { name:"夜光シェルパウダー芯", rarity:"SR", chance:1.08, color:"#00bfff", desc:"深海の特殊な貝殻パウダーを練り込んだ芯。暗闇でノートを開くと、書いた文字が淡く蛍光ブルーに発光するギミック付き。", type:"ルミナス・コンセプチュアル" },
+    { name:"ダイヤモンド・インジェクション芯", rarity:"DIAMOND", chance:2.15, color:"#b0c4de", desc:"工業用ダイヤモンド微粒子を配合。未だかつてない耐摩耗性を誇り、一本で教科書一冊分の文字を書き尽くすことが可能。", type:"ジュエリーグレード" },
+    { name:"24Kイエローゴールドケース芯", rarity:"GOLD", chance:5.07, color:"#e6a100", desc:"黄金に輝く特製ケースに収められた、協会お墨付きの高級仕様。持っているだけでクラスの視線を独占できるステータスアイテム。", type:"プレミアムケース" },
+    { name:"高密度なめらか2B芯", rarity:"RARE", chance:8.24, color:"#0066cc", desc:"一般的な芯とは一線を画す高密度製法。濃く、深く、それでいて手が汚れない理想的なバランスを極めた実戦特化型。", type:"エリート文具" },
+    { name:"堅実なる事務用HB芯", rarity:"ANCOMMON", chance:12.67, color:"#28a745", desc:"全国のオフィスや学校で愛される信頼の緑パッケージ。特別尖った性能はないが、その圧倒的な実家のような安心感は異常。", type:"ワークホース・ギア" },
+    { name:"量産型リサイクル芯", rarity:"COMMON", chance:24.71, color:"#555555", desc:"工場の端材を集めて再成形したエコな芯。ちょっと色が薄い気もするけれど、日常使いにはこれで十分だという割り切りが大事。", type:"エコノミークラス" },
+    { name:"ただの炭化糖パウダー（すぐ折れる）", rarity:"UNKO", chance:44.22, color:"#8b4513", desc:"実質、焼きすぎた焦げカルメ焼きの破片。ノックした瞬間に粉砕し、紙に触れただけで「パキッ」と心地よい絶望の音が響き渡る。", type:"完全なるハズレ枠" }
 ];
+
+// レア度判定用のウエイトマップ（値が小さいほどレア＝上に来る）
+const rarityOrder = {
+    "BOSS": 1,
+    "PRE": 2,
+    "UUR": 3,
+    "UR": 4,
+    "LEG": 5,
+    "SSR": 6,
+    "SR": 7,
+    "DIAMOND": 8,
+    "GOLD": 9,
+    "RARE": 10,
+    "ANCOMMON": 11,
+    "COMMON": 12,
+    "UNKO": 13
+};
 
 // ロード演出
 function runLoadingOverlay(callback) {
@@ -575,7 +601,7 @@ function updatePower(){ document.getElementById("powerText").innerHTML = `芯ポ
 function getInventory(){ return JSON.parse(localStorage.getItem("leadInventory")) || []; }
 function saveInventory(data){ localStorage.setItem("leadInventory", JSON.stringify(data)); }
 
-// 所持表示
+// 所持表示（レア度順ソート版）
 function showInventory(){
     const inventory = getInventory();
     let grouped = {};
@@ -585,8 +611,12 @@ function showInventory(){
         grouped[key].count++;
     });
 
+    let sortedItems = Object.values(grouped).sort((a, b) => {
+        return (rarityOrder[a.rarity] || 99) - (rarityOrder[b.rarity] || 99);
+    });
+
     let html = "";
-    Object.values(grouped).forEach(item=>{
+    sortedItems.forEach(item=>{
         html += `
         <div class="inventory-item" style="border-left:5px solid ${item.color};">
             <div style="color:${item.color}; font-weight:bold; font-size:13px; letter-spacing:1px;">${item.rarity}</div>
@@ -608,6 +638,7 @@ function randomItem(){
         total += item.chance;
         if(random <= total){ return item; }
     }
+    return items[items.length - 1]; // 安全対策で末尾を返す
 }
 
 function startAnimation(){
@@ -654,7 +685,7 @@ function draw10(){
                 html += `
                 <div class="multi-card" style="border-top:4px solid ${item.color};">
                     <div style="color:${item.color}; font-weight:bold; font-size:11px;">${item.rarity}</div>
-                    <div style="font-size:16px; margin-top:10px; color:${item.color}; font-weight:bold;">${item.name}</div>
+                    <div style="font-size:14px; margin-top:10px; color:${item.color}; font-weight:bold;">${item.name}</div>
                 </div>`;
             });
             html += `</div>`;
@@ -666,7 +697,8 @@ function draw10(){
 
 function displayResult(item){
     let effect = ""; let bg = "#fafafa";
-    if(item.rarity === "Super Rare" || item.rarity === "Ultra Rare" || item.rarity === "Legend"){
+    // 上位5つ（BOSS, PRE, UUR, UR, LEG）の場合に豪華なフラッシュエフェクトを適用
+    if(rarityOrder[item.rarity] <= 5){
         bg = "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(240,240,240,1) 100%)";
         effect = `animation:ssrFlash .6s infinite alternate;`;
         flash(item.color);
@@ -675,7 +707,7 @@ function displayResult(item){
     document.getElementById("result").style.background = bg;
     document.getElementById("result").innerHTML = `
     <div style="font-size:18px; color:${item.color}; font-weight:bold; letter-spacing:2px; ${effect}">${item.rarity}</div>
-    <div style="margin-top:12px; font-size:42px; color:${item.color}; font-weight:bold; letter-spacing:1px; ${effect}">${item.name}</div>
+    <div style="margin-top:12px; font-size:36px; color:${item.color}; font-weight:bold; letter-spacing:1px; ${effect}">${item.name}</div>
     <div style="margin-top:15px; color:#222; font-size:15px; font-weight:bold;">【${item.type}】</div>
     <div style="margin-top:12px; color:#555; font-size:14px; line-height:1.6; max-width:500px;">${item.desc}</div>
     <div style="margin-top:20px; color:#999; font-size:12px;">（排出確率 ${item.chance}%）</div>`;
