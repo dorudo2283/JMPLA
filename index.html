@@ -192,10 +192,10 @@ nav a:hover::after{
     left:100%;
 }
 
+/* 修正：ホバー時に上に動く(translateY)のを削除 */
 .btn:hover{
     background:#111;
     color:white;
-    transform:translateY(-5px);
 }
 
 .gacha-btn{
@@ -204,9 +204,9 @@ nav a:hover::after{
     border:none;
 }
 
+/* 修正：ホバー時に拡大・移動(scale, translateY)するのを削除 */
 .gacha-btn:hover{
     background:#a30000;
-    transform:translateY(-5px) scale(1.03);
 }
 
 /* SECTION */
@@ -259,8 +259,8 @@ nav a:hover::after{
     left:100%;
 }
 
+/* 修正：ホバー時に上に動く(translateY)のを削除 */
 .card:hover{
-    transform:translateY(-8px);
     border-color:rgba(0,0,0,0.2);
     box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
@@ -275,17 +275,20 @@ nav a:hover::after{
     line-height:2;
 }
 
-/* 教義 */
+/* 教義・理念 */
 
 .doctrine{
     padding:140px 10%;
     text-align:center;
 }
 
+/* 修正：画像を右下に絶対配置するため relative を指定。
+   スマホでは画像が被るので、下部に適度な padding-bottom を確保 */
 .doctrine-box{
+    position: relative;
     max-width:950px;
     margin:auto;
-    padding:70px;
+    padding:70px 70px 120px 70px;
     border:1px solid rgba(0,0,0,0.08);
     background:white;
     transition:.7s;
@@ -308,6 +311,16 @@ nav a:hover::after{
     font-size:18px;
 }
 
+/* 追加：理念ボックス内の右下画像を制御するCSS */
+.doctrine-box .kami-img {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    max-width: 150px; /* 必要に応じてサイズ変更してください */
+    height: auto;
+    object-fit: contain;
+}
+
 /* 幹部 */
 
 .members{
@@ -326,8 +339,8 @@ nav a:hover::after{
     transform:translateY(40px);
 }
 
+/* 修正：ホバー時に上に動く(translateY)のを削除 */
 .member:hover{
-    transform:translateY(-7px);
     border-color:rgba(0,0,0,0.2);
     box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
@@ -423,7 +436,7 @@ footer{
     }
 
     .doctrine-box{
-        padding:40px 25px;
+        padding:40px 25px 100px 25px;
     }
 
     .doctrine-box h2{
@@ -432,6 +445,13 @@ footer{
 
     .price-box{
         font-size:15px;
+    }
+    
+    /* 追加：スマホ画面では画像を少し小さくして調整 */
+    .doctrine-box .kami-img {
+        max-width: 100px;
+        bottom: 15px;
+        right: 15px;
     }
 
 }
@@ -457,16 +477,13 @@ footer{
 
 </header>
 
-<!-- HERO -->
-
 <section class="hero">
 
     <div class="hero-inner">
 
         <div class="sub">
-            JAPAN MECHANICAL PENCIL LEAD ASSOCIATION
+            JAPAN MECHANICAL PENCIL LEAD ASSOCIATION - JMPLA
         </div>
-
         <img src="logo.png" class="main-logo" alt="日本シャー芯協会ロゴ">
 
         <p class="hero-text">
@@ -494,8 +511,6 @@ footer{
 
 </section>
 
-<!-- 理念 -->
-
 <section class="doctrine" id="about">
 
     <div class="doctrine-box">
@@ -518,12 +533,12 @@ footer{
 
             さて、あなたは芯に何を求める？
         </p>
+        
+        <img src="kami.png" alt="参考図" class="kami-img">
 
     </div>
 
 </section>
-
-<!-- お告げ -->
 
 <section class="doctrine">
 
@@ -546,8 +561,6 @@ footer{
     </div>
 
 </section>
-
-<!-- 制度 -->
 
 <section class="section" id="system">
 
@@ -594,7 +607,7 @@ footer{
 
             <p>
                 最初は皆一般階級から始まる。<br>
-                階級は本人の態度、忠誠度、
+                階級は本本人への態度、忠誠度、
                 能力によって左右される。<br><br>
 
                 ・一般会員<br>
@@ -617,8 +630,6 @@ footer{
     </div>
 
 </section>
-
-<!-- 幹部 -->
 
 <section class="section" id="leaders">
 
@@ -682,8 +693,6 @@ footer{
 
 </section>
 
-<!-- 加入 -->
-
 <section class="section">
 
     <div class="section-title">
@@ -714,8 +723,6 @@ footer{
     </div>
 
 </section>
-
-<!-- 市場 -->
 
 <section class="section" id="market">
 
@@ -749,7 +756,7 @@ footer{
   Create by Saito and license by Saito
 
     <div class="warning">
-        - あなたは芯を信じるか？ -
+        - あなたは芯を信じるか？ -　(芯だけにｗ）
     </div>
 
     <div class="warning">
