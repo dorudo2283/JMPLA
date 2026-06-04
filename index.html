@@ -192,7 +192,6 @@ nav a:hover::after{
     left:100%;
 }
 
-/* 修正：ホバー時に上に動く(translateY)のを削除 */
 .btn:hover{
     background:#111;
     color:white;
@@ -204,7 +203,6 @@ nav a:hover::after{
     border:none;
 }
 
-/* 修正：ホバー時に拡大・移動(scale, translateY)するのを削除 */
 .gacha-btn:hover{
     background:#a30000;
 }
@@ -233,6 +231,7 @@ nav a:hover::after{
     gap:28px;
 }
 
+/* 修正：初期状態を不透明度1（普通に表示）に変更 */
 .card{
     background:white;
     border:1px solid rgba(0,0,0,0.08);
@@ -240,8 +239,8 @@ nav a:hover::after{
     transition:.7s;
     position:relative;
     overflow:hidden;
-    opacity:0;
-    transform:translateY(40px);
+    opacity:1;
+    transform:none;
 }
 
 .card::before{
@@ -259,7 +258,6 @@ nav a:hover::after{
     left:100%;
 }
 
-/* 修正：ホバー時に上に動く(translateY)のを削除 */
 .card:hover{
     border-color:rgba(0,0,0,0.2);
     box-shadow:0 10px 30px rgba(0,0,0,0.08);
@@ -282,18 +280,17 @@ nav a:hover::after{
     text-align:center;
 }
 
-/* 修正：画像を右下に絶対配置するため relative を指定。
-   スマホでは画像が被るので、下部に適度な padding-bottom を確保 */
+/* 修正：初期状態を不透明度1（普通に表示）に変更 */
 .doctrine-box{
     position: relative;
     max-width:950px;
     margin:auto;
-    padding:70px 70px 120px 70px;
+    padding:70px 70px 140px 70px;
     border:1px solid rgba(0,0,0,0.08);
     background:white;
     transition:.7s;
-    opacity:0;
-    transform:translateY(40px);
+    opacity:1;
+    transform:none;
 }
 
 .doctrine-box:hover{
@@ -311,12 +308,12 @@ nav a:hover::after{
     font-size:18px;
 }
 
-/* 追加：理念ボックス内の右下画像を制御するCSS */
+/* PC環境での画像配置 */
 .doctrine-box .kami-img {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    max-width: 150px; /* 必要に応じてサイズ変更してください */
+    bottom: 30px;
+    right: 30px;
+    max-width: 140px;
     height: auto;
     object-fit: contain;
 }
@@ -329,17 +326,17 @@ nav a:hover::after{
     gap:25px;
 }
 
+/* 修正：初期状態を不透明度1（普通に表示）に変更 */
 .member{
     background:white;
     border:1px solid rgba(0,0,0,0.08);
     padding:35px;
     text-align:center;
     transition:.7s;
-    opacity:0;
-    transform:translateY(40px);
+    opacity:1;
+    transform:none;
 }
 
-/* 修正：ホバー時に上に動く(translateY)のを削除 */
 .member:hover{
     border-color:rgba(0,0,0,0.2);
     box-shadow:0 10px 30px rgba(0,0,0,0.08);
@@ -416,7 +413,7 @@ footer{
     color:#777;
 }
 
-/* スマホ */
+/* スマホ環境（レスポンシブ） */
 
 @media(max-width:700px){
 
@@ -436,7 +433,7 @@ footer{
     }
 
     .doctrine-box{
-        padding:40px 25px 100px 25px;
+        padding:40px 25px;
     }
 
     .doctrine-box h2{
@@ -447,11 +444,11 @@ footer{
         font-size:15px;
     }
     
-    /* 追加：スマホ画面では画像を少し小さくして調整 */
     .doctrine-box .kami-img {
-        max-width: 100px;
-        bottom: 15px;
-        right: 15px;
+        position: static;
+        display: block;
+        max-width: 120px;
+        margin: 35px auto 0;
     }
 
 }
@@ -482,8 +479,9 @@ footer{
     <div class="hero-inner">
 
         <div class="sub">
-            JAPAN MECHANICAL PENCIL LEAD ASSOCIATION - JMPLA
+            JAPAN MECHANICAL PENCIL LEAD ASSOCIATION
         </div>
+
         <img src="logo.png" class="main-logo" alt="日本シャー芯協会ロゴ">
 
         <p class="hero-text">
@@ -522,7 +520,7 @@ footer{
             だが、人もまた折れる。<br><br>
 
             テスト中、突然折れる芯。<br>
-            ケースの底で砕け散る黒鉛。<br>
+            ケースの底で砕け散る黒煙。<br>
             友から一本分けてもらった時の救済。<br><br>
 
             我々は知っている。<br>
@@ -607,7 +605,7 @@ footer{
 
             <p>
                 最初は皆一般階級から始まる。<br>
-                階級は本本人への態度、忠誠度、
+                階級は本人の態度、忠誠度、
                 能力によって左右される。<br><br>
 
                 ・一般会員<br>
@@ -738,12 +736,12 @@ footer{
 
         <div class="price-box">
             <div>HB 0.5mm</div>
-            <span>１芯　６円，半芯　３円</span>
+            <span>１芯 ６円，半芯 ３円</span>
         </div>
 
         <div class="price-box">
             <div>H 0.5mm</div>
-            <span>１芯　７円，半芯　３円</span>
+            <span>１芯 ７円，半芯 ３円</span>
         </div>
 
     </div>
@@ -756,7 +754,7 @@ footer{
   Create by Saito and license by Saito
 
     <div class="warning">
-        - あなたは芯を信じるか？ -　(芯だけにｗ）
+        - あなたは芯を信じるか？ -
     </div>
 
     <div class="warning">
@@ -767,6 +765,7 @@ footer{
 
 <script>
 
+/* お告げと加入ボタンの基本機能のみを残しています */
 const messages = [
 
     "「芯を知る者、芯に導かれる。」",
@@ -806,32 +805,6 @@ function join(){
     }
 
 }
-
-/* スクロール演出 */
-
-const cards = document.querySelectorAll(
-".card,.member,.doctrine-box"
-);
-
-window.addEventListener("scroll",()=>{
-
-    cards.forEach(card=>{
-
-        const top = card.getBoundingClientRect().top;
-
-        if(top < window.innerHeight - 100){
-
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-        }
-
-    });
-
-});
-
-/* 初回表示 */
-
-window.dispatchEvent(new Event("scroll"));
 
 </script>
 
