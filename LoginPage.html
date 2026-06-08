@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>会員専用拠点 - 日本シャー芯協会</title>
+<title>アカウント - 日本シャー芯協会</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
@@ -148,7 +148,7 @@ body::before{
 .description-box { text-align: left; border-top: 1px solid #eee; font-size: 14px; line-height: 1.8; color: #444; background: #fafafa; padding: 20px; border-radius: 4px; }
 .description-title { font-weight: bold; color: #111; margin-bottom: 6px; font-size: 12px; }
 
-/* 2. ニュース閲覧ボード（入力フォーム排除） */
+/* 2. ニュース閲覧ボード */
 .news-section {
     background: white;
     border: 1px solid rgba(0,0,0,0.08);
@@ -259,8 +259,7 @@ body::before{
     <div id="section-news" class="page-section">
         <div class="news-section">
             <div class="section-title">重要通知・活動記録</div>
-            <div class="news-timeline" id="newsTimeline">
-                </div>
+            <div class="news-timeline" id="newsTimeline"></div>
         </div>
     </div>
 
@@ -271,73 +270,82 @@ body::before{
 </div>
 
 <script>
-// ―― 1. 会員データベース ――
-const usersDatabase = {
-    "000-000": {
-        name: "ルンド",
-        rank: "教祖",
-        initial: "未設定",
-        desc: "初代芯覚醒者。「芯は人生である」と最初に語った人物。当協会の精神的支柱であり、すべての芯を平等に愛する。"
+// ―― ★【最重要】協会統合データベース（すべてのデータをこの1つの塊に集約） ――
+const SYSTEM_DATA = {
+    // 1. 会員データ
+    users: {
+        "000-000": {
+            name: "ルンド",
+            rank: "教祖",
+            initial: "未設定",
+            desc: "初代芯覚醒者。「芯は人生である」と最初に語った人物。当協会の精神的支柱であり、すべての芯を平等に愛する。"
+        },
+        "246-602": {
+            name: "サイトウ",
+            rank: "主（管理者）",
+            initial: "やっぱコード書くの楽しい！",
+            desc: "協会創設者であり、このWEBシステムの最高管理者。数学は44点だが、シャー芯の管理能力と熱意は圧倒的。"
+        },
+        "148-525": {
+            name: "アキヒロ",
+            rank: "運営（ワタナベ）",
+            initial: "未設定",
+            desc: "加入審査および協会の実務・運営を担当する要員。なぜか裏の権限が非常に強く、非常に頭が冴える切れ者。"
+        },
+        "636-994": {
+            name: "コウキ",
+            rank: "ゴールド会員",
+            initial: "未設定",
+            desc: "当協会に大きな貢献をもたらした人物。その功績として、一般会員からゴールドランクまで飛び級で昇格した。また、中間テストの総合点４５０以上の天才でもある...？"
+        }
     },
-    "246-602": {
-        name: "サイトウ",
-        rank: "主（管理者）",
-        initial: "やっぱコード書くの楽しい！",
-        desc: "協会創設者であり、このWEBシステムの最高管理者。数学は44点だが、シャー芯の管理能力と熱意は圧倒的。"
-    },
-    "148-525": {
-        name: "アキヒロ",
-        rank: "運営（ワタナベ）",
-        initial: "未設定",
-        desc: "加入審査および協会の実務・運営を担当する要員。なぜか裏の権限が非常に強く、非常に頭が冴える切れ者。"
-    },
-    "636-994": {
-        name: "コウキ",
-        rank: "ゴールド会員",
-        initial: "未設定",
-        desc: "当協会に大きな貢献をもたらした人物。その功績として、一般会員からゴールドランクまで飛び級で昇格した。また、中間テストの総合点４５０以上の天才でもある...？"
-    }
+
+    // 2. ニュースデータ
+    news: [
+        {
+            date: "2026/06/08",
+            author: "主",
+            title: "ログイン機能とログインページを追加",
+            content: "ログイン機能及び次のログイン後のページを作成（追加）しました。IDとパスワードは覚えてますか？また、不備があればすぐに主にお申し付けください。また、このニュース欄は 『主に言えば好きなニュースを載せられます』（例外あり）ので、載せたい・知らせたいことがあればぜひ主まで教えてください！"
+        },
+        {
+            date: "2026/05/25",
+            author: "主",
+            title: "データを読み込んでいます...",
+            content: "⚠データの読み込みに失敗しました。これは正常な反応です。"
+        }
+    ]
 };
 
-// ―― 2. 【ココを編集！】ニュースデータベース ――
-// ニュースを増やしたい時は、以下の { ... }, の塊をコピーして上に書き足してください。
-const newsDatabase = [
-    {
-        date: "2026/06/08",
-        author: "主",
-        title: "ログイン機能とログインページを追加",
-        content: "ログイン機能及び次のログイン後のページを作成（追加）しました。IDとパスワードは覚えてますか？また、不備があればすぐに主にお申し付けください。また、このニュース欄は　『主に言えば好きなニュースを載せられます』（例外あり）ので、載せたい・知らせたいことがあればぜひ主まで教えてください！"
-    },
-    {
-        date: "2026/05/25",
-        author: "主",
-        title: "データを読み込んでいます...",
-        content: "⚠データの読み込みに失敗しました。これは正常な反応です。"
-    }
-];
 
-
-// ―― 3. システム処理ロジック ――
+// ―― システム処理ロジック（SYSTEM_DATAから自動抽出） ――
 window.onload = function() {
-    const loggedInId = localStorage.getItem('last_login_id') || "246-602"; 
+    const loggedInId = localStorage.getItem('last_login_id') || ""; 
     
-    let currentUser = { name: "一般会員", rank: "MEMBER", initial: "M", desc: "協会の一般会員です。" };
-    if (usersDatabase[loggedInId]) {
-        currentUser = usersDatabase[loggedInId];
+    let currentUser = { 
+        name: "一般会員", 
+        rank: "MEMBER", 
+        initial: "M", 
+        desc: "協会の一般会員、またはゲストユーザーです。正しいIDでログインし直してください。" 
+    };
+
+    // 集約データ（SYSTEM_DATA.users）からログインユーザーを参照
+    if (SYSTEM_DATA.users[loggedInId]) {
+        currentUser = SYSTEM_DATA.users[loggedInId];
     }
 
     document.getElementById('userName').innerText = currentUser.name;
-    document.getElementById('myIdDisplay').innerText = "ID: " + loggedInId;
+    document.getElementById('myIdDisplay').innerText = "ID: " + (loggedInId || "未検出");
     document.getElementById('userRank').innerText = currentUser.rank;
     document.getElementById('userAvatar').innerText = currentUser.initial;
     document.getElementById('userDesc').innerText = currentUser.desc;
 
-    // 他メンバー一覧の自動生成
+    // 他メンバー一覧の自動生成（SYSTEM_DATA.users から仕分け）
     const gridContainer = document.getElementById('othersGrid');
     let htmlContent = "";
-    for (let key in usersDatabase) {
+    for (let key in SYSTEM_DATA.users) {
         if (key !== loggedInId) {
-            let member = usersDatabase[key];
+            let member = SYSTEM_DATA.users[key];
             htmlContent += `
                 <div class="mini-card">
                     <div class="mini-header">
@@ -355,7 +363,6 @@ window.onload = function() {
     displayNews();
 };
 
-// タブ切り替え
 function switchTab(tabName, buttonElement) {
     const buttons = document.querySelectorAll('.tab-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
@@ -367,16 +374,16 @@ function switchTab(tabName, buttonElement) {
     document.getElementById('section-' + tabName).classList.add('active-section');
 }
 
-// ニュースをHTMLデータから読み込んで出力する処理
 function displayNews() {
     const timeline = document.getElementById('newsTimeline');
 
-    if (newsDatabase.length === 0) {
+    // 集約データ（SYSTEM_DATA.news）を参照
+    if (SYSTEM_DATA.news.length === 0) {
         timeline.innerHTML = `<p style="color: #888; font-size: 13px; font-style: italic; text-align: center;">現在、通知されているニュースはありません。</p>`;
         return;
     }
 
-    timeline.innerHTML = newsDatabase.map(news => `
+    timeline.innerHTML = SYSTEM_DATA.news.map(news => `
         <div class="news-item">
             <div class="news-header">
                 <div>発信者: ${escapeHtml(news.author)}</div>
