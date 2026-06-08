@@ -169,7 +169,7 @@ body::before{
     <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="input-group">
             <label for="userId">ユーザーID</label>
-            <input type="text" id="userId" required placeholder="123-456" pattern="\d{3}-\d{3}" title="3桁-3桁の半角数字で入力してください">
+            <input type="text" id="userId" required placeholder="123-456" maxlength="7">
         </div>
 
         <div class="input-group">
@@ -194,14 +194,32 @@ body::before{
 </div>
 
 <script>
-function handleLogin(event) {
-    event.preventDefault();
 
-    // 2つの入力値を取得
+window.onload = function() {
+    const idInput = document.getElementById('userId');
+
+    idInput.addEventListener('input', function(e) {
+        
+        let value = e.target.value.replace(/\D/g, '');
+        
+        
+        if (value.length > 3) {
+            value = value.slice(0, 3) + '-' + value.slice(3, 6);
+        }
+        
+        
+        e.target.value = value;
+    });
+};
+
+// 2. ログインボタンが押された時の判定処理
+function handleLogin(event) {
+    event.preventDefault(); // ページリロードの防止
+
     const id = document.getElementById('userId').value;
     const pass = document.getElementById('password').value;
 
-    // 6桁のIDとパスワードの組み合わせ判定
+    // 厳格な組み合わせチェック
     if (id === "111-111" && pass === "kami2026") {
         alert("ログインしました - ルンド");
         window.location.href = "LoginPage.html"; 
@@ -218,6 +236,7 @@ function handleLogin(event) {
         alert("【ログイン失敗】\nIDまたはパスワードが一致しません。");
     }
 }
+
 
 function forgotId() {
     alert("【IDを忘れた】\n会員証に記載してあります。紛失時は管理者のサイトウにお問い合わせください。");
