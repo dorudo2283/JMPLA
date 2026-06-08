@@ -22,8 +22,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
+    justify-content: flex-start;
+    padding: 0 20px 60px;
 }
 
 body::before{
@@ -37,177 +37,253 @@ body::before{
     z-index: -1;
 }
 
-/* プロフィール切替用の選択メニュー */
-.switcher-box {
+/* 固定ヘッダーバー */
+.top-header {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0 15px;
     margin-bottom: 20px;
-    width: 100%;
-    max-width: 500px;
-    text-align: left;
-}
-
-.switcher-box label {
-    font-size: 11px;
-    color: #666;
-    letter-spacing: 1px;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.switcher-select {
-    width: 100%;
-    padding: 10px 15px;
-    border: 1px solid rgba(0,0,0,0.12);
-    background: white;
-    font-size: 14px;
-    color: #111;
-    cursor: pointer;
-    outline: none;
-    transition: 0.3s;
-}
-
-.switcher-select:focus {
-    border-color: #111;
-}
-
-.profile-container {
-    background: white;
-    border: 1px solid rgba(0,0,0,0.08);
-    padding: 60px 50px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-    text-align: center;
-    animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .logo-area {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    letter-spacing: 3px;
-    margin-bottom: 40px;
+    letter-spacing: 2px;
 }
 .logo-area span { color: #a30000; }
 
-.avatar {
+.logout-btn {
+    color: #777;
+    text-decoration: none;
+    font-size: 12px;
+    transition: 0.3s;
+}
+.logout-btn:hover { color: #a30000; }
+
+/* 上部タブ切り替えバー */
+.nav-bar {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 4px;
+    border-radius: 6px;
+    margin-bottom: 35px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.tab-btn.active {
+    background: #111;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* メインラッパー */
+.content-wrapper {
+    width: 100%;
+    max-width: 600px;
+}
+
+.page-section {
+    display: none;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.page-section.active-section {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 1. マイプロフィール */
+.main-profile-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 50px 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.avatar-main {
     width: auto;
     min-width: 90px;
     height: auto;
     min-height: 90px;
     background: #111;
     color: white;
-    font-size: 16px;
-    padding: 15px;
+    font-size: 15px;
+    padding: 15px 25px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 25px;
+    margin: 0 auto 20px;
     border-radius: 50px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    line-height: 1.4;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-.user-name {
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+.user-name { font-size: 26px; font-weight: bold; margin-bottom: 5px; }
+.my-id-display { font-family: 'Cinzel', serif; font-size: 14px; color: #666; letter-spacing: 1px; margin-bottom: 15px; }
+.rank-badge { display: inline-block; padding: 5px 20px; background: #111; color: white; font-size: 11px; font-weight: bold; letter-spacing: 2px; margin-bottom: 30px; }
+.description-box { text-align: left; border-top: 1px solid #eee; font-size: 14px; line-height: 1.8; color: #444; background: #fafafa; padding: 20px; border-radius: 4px; }
+.description-title { font-weight: bold; color: #111; margin-bottom: 6px; font-size: 12px; }
+
+/* 2. ニュース閲覧ボード（入力フォーム排除） */
+.news-section {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.03);
 }
 
-.rank-badge {
-    display: inline-block;
-    padding: 6px 22px;
-    background: #111;
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 35px;
-}
-
-.description-box {
-    text-align: left;
-    border-top: 1px solid #eee;
-    padding-top: 25px;
+.section-title {
     font-size: 14px;
-    line-height: 1.8;
-    color: #444;
-    background: #fafafa;
-    padding: 20px;
-    border-radius: 4px;
-    border: 1px solid rgba(0,0,0,0.02);
-}
-
-.description-title {
     font-weight: bold;
     color: #111;
-    margin-bottom: 8px;
-    font-size: 12px;
     letter-spacing: 1px;
+    margin-bottom: 25px;
+    padding-left: 5px;
+    border-left: 3px solid #a30000;
 }
 
-.logout-btn {
-    display: inline-block;
-    margin-top: 40px;
-    color: #777;
-    text-decoration: none;
-    font-size: 13px;
-    transition: 0.3s;
-    border-bottom: 1px solid transparent;
+.news-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
-.logout-btn:hover {
-    color: #a30000;
-    border-bottom-color: #a30000;
+
+.news-item {
+    background: #fcfcfc;
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.news-post-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #111;
+    margin-bottom: 8px;
+}
+
+.news-body {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* 3. 他幹部のステータス */
+.others-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.mini-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+}
+.mini-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+.mini-name { font-weight: bold; font-size: 16px; }
+.mini-rank { font-size: 11px; background: #666; color: white; padding: 2px 8px; font-weight: bold; }
+.mini-desc { font-size: 12px; color: #666; line-height: 1.6; }
+
+@media(max-width: 500px) {
+    .others-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<div class="switcher-box">
-    <label for="memberSwitcher">閲覧プロフィール切り替え（ID非表示）</label>
-    <select id="memberSwitcher" class="switcher-select" onchange="switchProfile(this.value)">
-        <option value="current">自分がログインしたアカウント</option>
-        <option value="000-000">ルンド（教祖）</option>
-        <option value="246-602">サイトウ（主）</option>
-        <option value="148-525">アキヒロ（運営）</option>
-    </select>
-</div>
-
-<div class="profile-container">
-    <div class="logo-area">日本<span>シャー芯</span>協会 - アカウントページ</div>
-
-    <div class="avatar" id="userAvatar">-</div>
-    <div class="user-name" id="userName">ロード中です....</div>
-    <div>
-        <div class="rank-badge" id="userRank">一般会員</div>
-    </div>
-    
-    <div class="description-box">
-        <div class="description-title">【 所属説明・任務 】</div>
-        <p id="userDesc">説明文を読み込み中です...</p>
-    </div>
-
+<div class="top-header">
+    <div class="logo-area">日本<span>シャー芯</span>協会</div>
     <a href="index.html" class="logout-btn">ログアウト</a>
 </div>
 
+<div class="nav-bar">
+    <button class="tab-btn active" onclick="switchTab('profile', this)">マイプロフィール</button>
+    <button class="tab-btn" onclick="switchTab('news', this)">協会ニュース</button>
+    <button class="tab-btn" onclick="switchTab('others', this)">他幹部ステータス</button>
+</div>
+
+<div class="content-wrapper">
+
+    <div id="section-profile" class="page-section active-section">
+        <div class="main-profile-card">
+            <div class="avatar-main" id="userAvatar">-</div>
+            <div class="user-name" id="userName">ロード中...</div>
+            <div class="my-id-display" id="myIdDisplay">ID: ---</div>
+            <div>
+                <div class="rank-badge" id="userRank">一般会員</div>
+            </div>
+            
+            <div class="description-box">
+                <div class="description-title">【 あなたの所属説明・任務 】</div>
+                <p id="userDesc">読み込み中...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-news" class="page-section">
+        <div class="news-section">
+            <div class="section-title">重要通知・活動記録</div>
+            <div class="news-timeline" id="newsTimeline">
+                </div>
+        </div>
+    </div>
+
+    <div id="section-others" class="page-section">
+        <div class="others-grid" id="othersGrid"></div>
+    </div>
+
+</div>
+
 <script>
+// ―― 1. 会員データベース ――
 const usersDatabase = {
     "000-000": {
         name: "ルンド",
         rank: "教祖",
         initial: "未設定",
-        desc: "初代芯覚醒者。「芯は人生である」と最初に語った人物であり、当協会の精神的支柱。HBも2Bもすべて平等に愛する。"
+        desc: "初代芯覚醒者。「芯は人生である」と最初に語った人物。当協会の精神的支柱であり、すべての芯を平等に愛する。"
     },
     "246-602": {
         name: "サイトウ",
         rank: "主（管理者）",
         initial: "やっぱコード書くの楽しい！",
-        desc: "協会創設者であり、このWEBシステムの最高管理者。数学は44点だが、シャー芯の管理能力と熱意は他の追随を許さない。"
+        desc: "協会創設者であり、このWEBシステムの最高管理者。数学は44点だが、シャー芯の管理能力と熱意は圧倒的。"
     },
     "148-525": {
         name: "アキヒロ",
@@ -217,43 +293,97 @@ const usersDatabase = {
     }
 };
 
-// ログインした本人のIDを保持する変数
-let loggedInId = "";
+// ―― 2. 【ココを編集！】ニュースデータベース ――
+// ニュースを増やしたい時は、以下の { ... }, の塊をコピーして上に書き足してください。
+const newsDatabase = [
+    {
+        date: "2026/06/08",
+        author: "主",
+        title: "ログイン機能とログインページを追加",
+        content: "ログイン機能及び次のログイン後のページを作成（追加）しました。IDとパスワードは覚えてますか？また、不備があればすぐに主にお申し付けください。"
+    },
+    {
+        date: "2026/05/25",
+        author: "主",
+        title: "データを読み込んでいます...",
+        content: "⚠データの読み込みに失敗しました。これは正常な反応です。"
+    }
+];
 
+
+// ―― 3. システム処理ロジック ――
 window.onload = function() {
-    // サイトウ様の新規ID「246-602」にデフォルト値を合わせてエラーを修正
-    loggedInId = localStorage.getItem('last_login_id') || "246-602"; 
+    const loggedInId = localStorage.getItem('last_login_id') || "246-602"; 
     
-    // 初期表示を実行
-    renderProfile(loggedInId);
-};
-
-// プロフィール情報を画面にレンダリングする関数
-function renderProfile(id) {
-    let currentUser = {
-        name: "一般会員",
-        rank: "MEMBER",
-        initial: "M",
-        desc: "協会の一般会員です。"
-    };
-
-    if (usersDatabase[id]) {
-        currentUser = usersDatabase[id];
+    let currentUser = { name: "一般会員", rank: "MEMBER", initial: "M", desc: "協会の一般会員です。" };
+    if (usersDatabase[loggedInId]) {
+        currentUser = usersDatabase[loggedInId];
     }
 
     document.getElementById('userName').innerText = currentUser.name;
+    document.getElementById('myIdDisplay').innerText = "ID: " + loggedInId;
     document.getElementById('userRank').innerText = currentUser.rank;
     document.getElementById('userAvatar').innerText = currentUser.initial;
     document.getElementById('userDesc').innerText = currentUser.desc;
+
+    // 他メンバー一覧の自動生成
+    const gridContainer = document.getElementById('othersGrid');
+    let htmlContent = "";
+    for (let key in usersDatabase) {
+        if (key !== loggedInId) {
+            let member = usersDatabase[key];
+            htmlContent += `
+                <div class="mini-card">
+                    <div class="mini-header">
+                        <div class="mini-name">${member.name}</div>
+                        <div class="mini-rank">${member.rank}</div>
+                    </div>
+                    <div class="mini-desc">${member.desc}</div>
+                </div>
+            `;
+        }
+    }
+    gridContainer.innerHTML = htmlContent;
+
+    // ニュースのロード表示
+    displayNews();
+};
+
+// タブ切り替え
+function switchTab(tabName, buttonElement) {
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    const sections = document.querySelectorAll('.page-section');
+    sections.forEach(sec => sec.classList.remove('active-section'));
+    
+    buttonElement.classList.add('active');
+    document.getElementById('section-' + tabName).classList.add('active-section');
 }
 
-// ドロップダウンが変更された時の処理
-function switchProfile(selectedValue) {
-    if (selectedValue === "current") {
-        renderProfile(loggedInId); // ログインした本人に戻す
-    } else {
-        renderProfile(selectedValue); // 選択された他のメンバーの情報を表示
+// ニュースをHTMLデータから読み込んで出力する処理
+function displayNews() {
+    const timeline = document.getElementById('newsTimeline');
+
+    if (newsDatabase.length === 0) {
+        timeline.innerHTML = `<p style="color: #888; font-size: 13px; font-style: italic; text-align: center;">現在、通知されているニュースはありません。</p>`;
+        return;
     }
+
+    timeline.innerHTML = newsDatabase.map(news => `
+        <div class="news-item">
+            <div class="news-header">
+                <div>発信者: ${escapeHtml(news.author)}</div>
+                <div>${news.date}</div>
+            </div>
+            <div class="news-post-title">📢 ${escapeHtml(news.title)}</div>
+            <div class="news-body">${escapeHtml(news.content)}</div>
+        </div>
+    `).join('');
+}
+
+function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 }
 </script>
 
