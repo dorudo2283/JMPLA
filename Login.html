@@ -167,16 +167,14 @@ body::before{
     <div class="en-title">Japan Mechanical Pencil Lead Association</div>
 
     <form id="loginForm" onsubmit="handleLogin(event)">
-        <!-- 枠2: PASSWORD -->
+        <div class="input-group">
+            <label for="userId">ユーザーID</label>
+            <input type="text" id="userId" required placeholder="123-456" pattern="\d{3}-\d{3}" title="3桁-3桁の半角数字で入力してください">
+        </div>
+
         <div class="input-group">
             <label for="password">パスワード</label>
             <input type="password" id="password" required placeholder="••••••••">
-        </div>
-
-        <!-- 枠3: SECRET CODE (追加された3つ目の枠) -->
-        <div class="input-group">
-            <label for="secretCode">ユーザーID</label>
-            <input type="text" id="secretCode" required placeholder="６ヶタのID">
         </div>
 
         <label class="remember-me">
@@ -199,28 +197,25 @@ body::before{
 function handleLogin(event) {
     event.preventDefault();
 
+    // 2つの入力値を取得
     const id = document.getElementById('userId').value;
     const pass = document.getElementById('password').value;
-    const secret = document.getElementById('secretCode').value;
 
-    
-    if (id === "rumbe" && pass === "kami2026" && secret === "2B") {
-        alert("ログインしました　-　ルンド");
+    // 6桁のIDとパスワードの組み合わせ判定
+    if (id === "111-111" && pass === "kami2026") {
+        alert("ログインしました - ルンド");
         window.location.href = "LoginPage.html"; 
     }
-    
-    else if (id === "saito" && pass === "shasin0.5" && secret === "44") {
-        alert("ログインしました　-　サイトウ");
+    else if (id === "222-222" && pass === "shasin0.5") {
+        alert("ログインしました - サイトウ");
         window.location.href = "LoginPage.html"; 
     }
-    
-    else if (id === "watanabe" && pass === "wata999" && secret === "運営") {
-        alert("ログインしました　-　アキヒロ");
+    else if (id === "333-333" && pass === "wata999") {
+        alert("ログインしました - アキヒロ");
         window.location.href = "LoginPage.html"; 
     }
-    
     else {
-        alert("【ログイン失敗】\nID、パスワード、またはIDが一致しません。\n芯への忠誠心が足りないか、入力に誤りがあります。");
+        alert("【ログイン失敗】\nIDまたはパスワードが一致しません。");
     }
 }
 
