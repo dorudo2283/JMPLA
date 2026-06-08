@@ -194,25 +194,21 @@ body::before{
 </div>
 
 <script>
-
 window.onload = function() {
     const idInput = document.getElementById('userId');
 
     idInput.addEventListener('input', function(e) {
-        
         let value = e.target.value.replace(/\D/g, '');
-        
         
         if (value.length > 3) {
             value = value.slice(0, 3) + '-' + value.slice(3, 6);
         }
         
-        
         e.target.value = value;
     });
 };
 
-// 2. ログインボタンが押された時の判定処理
+// 2. ログインボタンが押された時の判定処理（ID引き継ぎ処理を追加）
 function handleLogin(event) {
     event.preventDefault(); // ページリロードの防止
 
@@ -221,18 +217,22 @@ function handleLogin(event) {
 
     // 厳格な組み合わせチェック
     if (id === "000-000" && pass === "DajpD12") {
+        localStorage.setItem('last_login_id', id); // 【重要】IDをローカルストレージに保存
         alert("ログインしました - ルンド");
         window.location.href = "LoginPage.html"; 
     }
     else if (id === "246-602" && pass === "AdminFF") {
+        localStorage.setItem('last_login_id', id); // 【重要】IDをローカルストレージに保存
         alert("ログインしました - サイトウ");
         window.location.href = "LoginPage.html"; 
     }
     else if (id === "148-525" && pass === "aHre78") {
+        localStorage.setItem('last_login_id', id); // 【重要】IDをローカルストレージに保存
         alert("ログインしました - アキヒロ");
         window.location.href = "LoginPage.html"; 
     }
-     else if (id === "636-994" && pass === "Abg889") {
+    else if (id === "636-994" && pass === "Abg889") {
+        localStorage.setItem('last_login_id', id); // 【重要】IDをローカルストレージに保存
         alert("ログインしました - コウキ");
         window.location.href = "LoginPage.html"; 
     }
@@ -240,7 +240,6 @@ function handleLogin(event) {
         alert("【ログイン失敗】\nIDまたはパスワードが一致しません。");
     }
 }
-
 
 function forgotId() {
     alert("【IDを忘れた】\n会員証に記載してあります。紛失時は管理者のサイトウにお問い合わせください。");
