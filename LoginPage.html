@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会員専用拠点 - 日本シャー芯協会</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
+}
+
+body{
+    background: linear-gradient(to bottom right, #f7f7f7, #ececec);
+    color: #111;
+    min-height: 100vh;
+    padding: 40px 5%;
+}
+
+body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+}
+
+header {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding-bottom: 20px;
+}
+
+.logo-area {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+.logo-area span { color: #a30000; }
+
+.logout-btn {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.logout-btn:hover { color: #a30000; }
+
+.main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+}
+
+/* 左側：ユーザープロフィール情報 */
+.profile-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 40px 30px;
+    height: fit-content;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    text-align: center;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: #111;
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.user-id {
+    font-size: 14px;
+    color: #888;
+    font-family: 'Cinzel', serif;
+    margin-bottom: 25px;
+}
+
+.rank-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: #111;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* 右側：ブログ・投稿エリア */
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.editor-box {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.editor-box h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.editor-box input, .editor-box textarea {
+    width: 100%;
+    border: 1px solid rgba(0,0,0,0.12);
+    background: #fafafa;
+    padding: 14px;
+    font-size: 15px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.editor-box input:focus, .editor-box textarea:focus {
+    outline: none;
+    border-color: #111;
+    background: white;
+}
+
+.post-btn {
+    padding: 12px 30px;
+    background: #111;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+.post-btn:hover { background: #a30000; }
+
+/* タイムライン表示 */
+.blog-timeline h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.blog-post {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 35px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+    animation: fadeIn 0.6s ease;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.post-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.post-meta {
+    font-size: 12px;
+    color: #888;
+}
+
+.post-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+@media(max-width: 768px) {
+    .main-container { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo-area">日本<span>シャー芯</span>協会</div>
+    <a href="index.html" class="logout-btn">拠点を出る（ログアウト）</a>
+</header>
+
+<div class="main-container">
+    <div class="profile-card">
+        <div class="avatar" id="userAvatar">S</div>
+        <div class="user-name" id="userName">読み込み中...</div>
+        <div class="user-id" id="userId">ID: ---</div>
+        <div class="rank-badge" id="userRank">一般会員</div>
+    </div>
+
+    <div class="content-area">
+        <div class="editor-box">
+            <h2>【黒鉛の思索を記録する（ブログ投稿）】</h2>
+            <input type="text" id="blogTitle" placeholder="記事の題名（タイトル）">
+            <textarea id="blogContent" rows="6" placeholder="ここに芯への想いや日常を書き綴る..."></textarea>
+            <button class="post-btn" onclick="saveBlogPost()">思索を投稿する</button>
+        </div>
+
+        <div class="blog-timeline">
+            <h3>過去の投稿記録</h3>
+            <div id="postsContainer">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 今回、誰がログインしたかを仮に「サイトウ様」として初期表示します。
+// 本来は前画面から引き継ぎますが、単体動作を確実にするためデータをここに固定設置。
+const currentUser = {
+    name: "サイトウ",
+    id: "222-222",
+    rank: "主（管理者）",
+    initial: "S"
+};
+
+// 画面にステータスを反映
+document.getElementById('userName').innerText = currentUser.name;
+document.getElementById('userId').innerText = "ID: " + currentUser.id;
+document.getElementById('userRank').innerText = currentUser.rank;
+document.getElementById('userAvatar').innerText = currentUser.initial;
+
+// ページ起動時に、保存されている過去のブログを読み込む
+window.onload = function() {
+    displayPosts();
+};
+
+// ブログをブラウザに保存する処理（認知科学的ローカルストレージ活用）
+function saveBlogPost() {
+    const title = document.getElementById('blogTitle').value.trim();
+    const content = document.getElementById('blogContent').value.trim();
+
+    if (!title || !content) {
+        alert("タイトルと内容を入力してください。");
+        return;
+    }
+
+    // 現在の時間を取得
+    const now = new Date();
+    const dateString = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+    const newPost = {
+        title: title,
+        content: content,
+        date: dateString,
+        author: currentUser.name
+    };
+
+    // 既存の保存データを取得、なければ空の配列を作る
+    let posts = JSON.parse(localStorage.getItem('shasin_blogs')) || [];
+    
+    // 新しい投稿を先頭（最新順）に追加
+    posts.unshift(newPost);
+
+    // ブラウザのストレージに保存
+    localStorage.setItem('shasin_blogs', JSON.stringify(posts));
+
+    // 入力欄をクリア
+    document.getElementById('blogTitle').value = "";
+    document.getElementById('blogContent').value = "";
+
+    // 画面の表示を更新
+    displayPosts();
+    alert("芯の記録をタイムラインに刻みました。");
+}
+
+// 画面にブログ一覧を表示する処理
+function displayPosts() {
+    const container = document.getElementById('postsContainer');
+    const posts = JSON.parse(localStorage.getItem('shasin_blogs')) || [];
+
+    if (posts.length === 0) {
+        container.innerHTML = `<p style="color: #888; font-style: italic;">まだ投稿された思索はありません。最初の1本を折り、書き残しましょう。</p>`;
+        return;
+    }
+
+    // HTMLを組み立てて流し込む
+    container.innerHTML = posts.map(post => `
+        <div class="blog-post">
+            <div class="post-header">
+                <div class="post-title">${escapeHtml(post.title)}</div>
+                <div class="post-meta">投稿者: ${escapeHtml(post.author)} | ${post.date}</div>
+            </div>
+            <div class="post-body">${escapeHtml(post.content)}</div>
+        </div>
+    `).join('');
+}
+
+// セキュリティ対策（XSS防止用の文字エスケープ処理）
+function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#039;');
+}
+</script>
+
+</body>
+</html>
