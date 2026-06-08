@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LOGIN - 日本シャー芯協会</title>
 
-<!-- Google Fonts から格調高いセリフ体（Cinzel）を読み込み -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -26,7 +25,6 @@ body{
     padding: 20px;
 }
 
-/* 方眼紙風背景（index.htmlと同期） */
 body::before{
     content: "";
     position: fixed;
@@ -62,7 +60,6 @@ body::before{
 }
 .logo-area span { color: #a30000; }
 
-/* 英語表記（Cinzelフォント、広い文字間隔でひっそり感を演出） */
 .en-title {
     font-family: 'Cinzel', serif;
     font-size: 9px;
@@ -79,7 +76,7 @@ body::before{
 
 .input-group label {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     color: #666;
     margin-bottom: 8px;
     letter-spacing: 1px;
@@ -100,7 +97,6 @@ body::before{
     background: white;
 }
 
-/* デフォルト効果（ログイン状態維持） */
 .remember-me {
     display: flex;
     align-items: center;
@@ -115,7 +111,6 @@ body::before{
     cursor: pointer;
 }
 
-/* ログインボタン */
 .login-btn {
     width: 100%;
     padding: 16px;
@@ -134,7 +129,6 @@ body::before{
     background: #a30000;
 }
 
-/* パスワード・IDを忘れた場合 */
 .forgot-links {
     margin-top: 25px;
     display: flex;
@@ -173,14 +167,16 @@ body::before{
     <div class="en-title">Japan Mechanical Pencil Lead Association</div>
 
     <form id="loginForm" onsubmit="handleLogin(event)">
-        <div class="input-group">
-            <label for="userId">ユーザーID</label>
-            <input type="text" id="userId" required placeholder="芯の識別番号を入力">
-        </div>
-        
+        <!-- 枠2: PASSWORD -->
         <div class="input-group">
             <label for="password">パスワード</label>
             <input type="password" id="password" required placeholder="••••••••">
+        </div>
+
+        <!-- 枠3: SECRET CODE (追加された3つ目の枠) -->
+        <div class="input-group">
+            <label for="secretCode">ユーザーID</label>
+            <input type="text" id="secretCode" required placeholder="６ヶタのID">
         </div>
 
         <label class="remember-me">
@@ -189,7 +185,6 @@ body::before{
 
         <button type="submit" class="login-btn">ログイン</button>
     </form>
-
 
     <div class="forgot-links">
         <a href="javascript:void(0);" onclick="forgotId()">IDを忘れた場合</a>
@@ -201,36 +196,40 @@ body::before{
 </div>
 
 <script>
-// パスワードによるページ条件分岐処理
 function handleLogin(event) {
-    event.preventDefault(); 
+    event.preventDefault();
+
+    const id = document.getElementById('userId').value;
     const pass = document.getElementById('password').value;
+    const secret = document.getElementById('secretCode').value;
 
     
-    if (pass === "kanbu2026") {
-        
-        alert("幹部権限を確認。秘密会議室へ移動します。");
-        window.location.href = "kanbu.html"; 
-    } 
-    else if (pass === "hb2b") {
-        
-        alert("お告げの真意を理解せし者よ。聖域へ進みなさい。");
-        window.location.href = "sanctuary.html"; 
-    } 
+    if (id === "rumbe" && pass === "kami2026" && secret === "2B") {
+        alert("ログインしました　-　ルンド");
+        window.location.href = "LoginPage.html"; 
+    }
+    
+    else if (id === "saito" && pass === "shasin0.5" && secret === "44") {
+        alert("ログインしました　-　サイトウ");
+        window.location.href = "LoginPage.html"; 
+    }
+    
+    else if (id === "watanabe" && pass === "wata999" && secret === "運営") {
+        alert("ログインしました　-　アキヒロ");
+        window.location.href = "LoginPage.html"; 
+    }
+    
     else {
-        
-        alert("一般会員としてログインしました。");
-        window.location.href = "index.html"; 
+        alert("【ログイン失敗】\nID、パスワード、またはIDが一致しません。\n芯への忠誠心が足りないか、入力に誤りがあります。");
     }
 }
 
-
 function forgotId() {
-    alert("【IDをお忘れの方へ】\nIDは、会員証に記載してあります。会員証を紛失した際は、主まで申告しなさい。");
+    alert("【IDを忘れた】\n会員証に記載してあります。紛失時は管理者のサイトウにお問い合わせください。");
 }
 
 function forgotPassword() {
-    alert("【パスワードをお忘れの方へ】\nパスワードは各自、ログイン登録をした方（主に要申請）のみに渡したパスワードを見てください。");
+    alert("【パスワードを忘れた】\nログイン申請済みの方はパスワードを記載した紙、pdfがあるはずです。確認してください。\nない場合、わからない場合はサイトウまでお問い合わせください。");
 }
 </script>
 
