@@ -290,6 +290,12 @@ const usersDatabase = {
         rank: "運営（ワタナベ）",
         initial: "未設定",
         desc: "加入審査および協会の実務・運営を担当する要員。なぜか裏の権限が非常に強く、非常に頭が冴える切れ者。"
+    },
+    "636-994": {
+        name: "コウキ",
+        rank: "ゴールド会員",
+        initial: "未設定",
+        desc: "当協会に大きな貢献をもたらした人物。その功績として、一般会員からゴールドランクまで飛び級で昇格した。また、中間テストの総合点４５０以上の天才でもある...？"
     }
 };
 
@@ -300,7 +306,7 @@ const newsDatabase = [
         date: "2026/06/08",
         author: "主",
         title: "ログイン機能とログインページを追加",
-        content: "ログイン機能及び次のログイン後のページを作成（追加）しました。IDとパスワードは覚えてますか？また、不備があればすぐに主にお申し付けください。"
+        content: "ログイン機能及び次のログイン後のページを作成（追加）しました。IDとパスワードは覚えてますか？また、不備があればすぐに主にお申し付けください。また、このニュース欄は　『主に言えば好きなニュースを載せられます』（例外あり）ので、載せたい・知らせたいことがあればぜひ主まで教えてください！"
     },
     {
         date: "2026/05/25",
@@ -376,7 +382,7 @@ function displayNews() {
                 <div>発信者: ${escapeHtml(news.author)}</div>
                 <div>${news.date}</div>
             </div>
-            <div class="news-post-title">📢 ${escapeHtml(news.title)}</div>
+            <div class="news-post-title">・ ${escapeHtml(news.title)}</div>
             <div class="news-body">${escapeHtml(news.content)}</div>
         </div>
     `).join('');
