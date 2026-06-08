@@ -160,18 +160,19 @@ body::before{
 }
 .description-title { font-weight: bold; color: #111; margin-bottom: 6px; font-size: 12px; }
 
-/* 新設：メッセージ（吹き出し）の装飾（メイン） */
+/* メッセージ（吹き出し）の装飾 */
 .message-box {
     text-align: left;
     background: #fff3f3;
     border-left: 4px solid #a30000;
-    padding: 15px 20px;
+    padding: 18px 20px;
     border-radius: 0 4px 4px 0;
     font-size: 13.5px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: #333;
-    font-style: italic;
     position: relative;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 .message-box::before {
     content: "“";
@@ -209,8 +210,8 @@ body::before{
 
 /* 3. 他幹部のステータス */
 .others-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* メッセージ枠が入るため、1列にして視認性を確保 */
+    display: flex;
+    flex-direction: column;
     gap: 25px;
 }
 
@@ -230,11 +231,13 @@ body::before{
 .mini-message {
     background: #f9f9f9;
     border-left: 3px solid #666;
-    padding: 10px 15px;
-    font-size: 12.5px;
-    color: #555;
-    font-style: italic;
+    padding: 12px 15px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #444;
     border-radius: 0 4px 4px 0;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 </style>
 </head>
@@ -285,34 +288,34 @@ body::before{
 </div>
 
 <script>
-// ―― ★ 協会統合データベース（message項目を新設） ――
+// ―― ★ 協会統合データベース ――
 const SYSTEM_DATA = {
     users: {
         "000-000": {
             name: "ルンド",
             rank: "教祖",
-            initial: "未設定",
+            initial: "ル",
             desc: "初代芯覚醒者。「芯は人生である」と最初に語った人物。当協会の精神的支柱であり、すべての芯を平等に愛する。",
-            message: "すべての芯に、光あれ。日々ケースを磨くことを怠らぬように。" // ←いただいたメッセージ
+            message: "すべての芯に、光あれ。日々ケースを磨くことを怠らぬように。"
         },
         "246-602": {
             name: "サイトウ",
             rank: "主（管理者）",
-            initial: "やっぱコード書くの楽しい！",
+            initial: "サ",
             desc: "協会創設者であり、このWEBシステムの最高管理者。数学は44点だが、シャー芯の管理能力と熱意は圧倒的。",
             message: "ログイン機能ができて上機嫌 ♪ "
         },
         "148-525": {
             name: "アキヒロ",
             rank: "運営（ワタナベ）",
-            initial: "未設定",
+            initial: "ア",
             desc: "加入審査および協会の実務・運営を担当する要員。なぜか裏の権限が非常に強く、非常に頭が冴える切れ者。",
-            message: "真　芯　信　進　神　このようにしんという言葉には多くの意味や可能性が含まれていますそれは貴方たちにも言えることですさあ自分の可能性を信じて神に祈りましょう。ああシャー神のご加護が在らんことを"
+            message: "真 芯 信 進 神 このようにしんという言葉には多くの意味や可能性が含まれていますそれは貴方たちにも言えることですさあ自分の可能性を信じて神に祈りましょう。ああシャー神のご加護が在らんことを"
         },
         "636-994": {
             name: "コウキ",
             rank: "ゴールド会員",
-            initial: "未設定",
+            initial: "コ",
             desc: "当協会に大きな貢献をもたらした人物。その功績として、一般会員からゴールドランクまで飛び級で昇格した。また、中間テストの総合点４５０以上の天才でもある...？",
             message: "伊藤光希（12・中1／卓球部）は「シャー芯教会」の広報担当。布教するが絶対に芯は渡さないスタイル。テスト前、友達がシャー芯を切らして絶望する横で、自分のケースを死守しながら「シャー芯を信じる者は、テストを制す。……シャー芯教会、今なら入会費無料だよ」と、短いキャッチコピーだけを無表情で言い残して去っていく。"
         }
@@ -334,36 +337,38 @@ const SYSTEM_DATA = {
     ]
 };
 
-
-// ―― システム処理ロジック ――
+// ―― システム処理ロジック（ID検出・抽出の修正） ――
 window.onload = function() {
-    const loggedInId = localStorage.getItem('last_login_id') || ""; 
+    // 1. ログイン情報をローカルストレージから取得（複数のキー名に対応できるよう安全策を確保）
+    const loggedInId = localStorage.getItem('last_login_id') || localStorage.getItem('user_id') || ""; 
     
+    // デフォルトユーザー（IDが見つからない場合の表示）
     let currentUser = { 
-        name: "一般会員", 
-        rank: "MEMBER", 
-        initial: "M", 
-        desc: "協会の一般会員、またはゲストユーザーです。",
-        message: "まだメッセージは届いていません。"
+        name: "未ログイン会員", 
+        rank: "GUEST", 
+        initial: "？", 
+        desc: "IDが正しく検出されませんでした。ログイン画面（index.html）から正しいIDを入力して再度ログインし直してください。",
+        message: "認証エラー：ログイン情報が引き継がれていません。"
     };
 
-    if (SYSTEM_DATA.users[loggedInId]) {
+    // 2. 検出されたIDがデータベース（SYSTEM_DATA）にあるか判定し、データを抽出
+    if (loggedInId && SYSTEM_DATA.users[loggedInId]) {
         currentUser = SYSTEM_DATA.users[loggedInId];
     }
 
-    // 本人のデータ書き込み
+    // 3. 画面に検出データを反映
     document.getElementById('userName').innerText = currentUser.name;
     document.getElementById('myIdDisplay').innerText = "ID: " + (loggedInId || "未検出");
     document.getElementById('userRank').innerText = currentUser.rank;
     document.getElementById('userAvatar').innerText = currentUser.initial;
     document.getElementById('userDesc').innerText = currentUser.desc;
-    document.getElementById('userMessage').innerText = currentUser.message; // メッセージ反映
+    document.getElementById('userMessage').innerText = currentUser.message;
 
-    // 他メンバー一覧の自動生成（メッセージ枠付き）
+    // 4. 自分以外のメンバーを「他幹部ステータス」に自動表示
     const gridContainer = document.getElementById('othersGrid');
     let htmlContent = "";
     for (let key in SYSTEM_DATA.users) {
-        if (key !== loggedInId) {
+        if (key !== loggedInId) { // 自分を排除
             let member = SYSTEM_DATA.users[key];
             htmlContent += `
                 <div class="mini-card">
